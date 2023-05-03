@@ -1,33 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FH in GSM and E-GRPS simulation</title>
     <style>
-        td {
-            border: 1px solid black;
-        }
+      td {
+        border: 1px solid black;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <div>
-        <label for="trxCount">Nombre de TRX :</label>
-        <input type="number" id="trxCount" value="4">
+      <label for="trxCount">Nombre de TRX :</label>
+      <input type="number" id="trxCount" value="4" />
     </div>
     <div>
-        <label for="slotCount">Nombre de time slots :</label>
-        <input type="number" id="slotCount" value="8">
+      <label for="slotCount">Nombre de time slots :</label>
+      <input type="number" id="slotCount" value="8" />
     </div>
     <div>
-        <button id="createButton">Créer le simulateur</button>
+      <label for="hsn">HSN :</label>
+      <input type="number" id="hsn" value="3" />
+    </div>
+    <div>
+      <button id="createButton">Créer le simulateur</button>
     </div>
     <table id="simulatorTable"></table>
 
     <script type="text/javascript" src="table.js"></script>
-</body>
-
+  </body>
 </html>
