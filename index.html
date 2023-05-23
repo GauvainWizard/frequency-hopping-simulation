@@ -7,19 +7,27 @@
     <title>FH in GSM and E-GRPS simulation</title>
     <style>
       td {
-        border: 1px solid black;
+        text-align: center;
+      }
+      table {
+        border-collapse: separate;
+        border-spacing: 0 15px;
       }
     </style>
   </head>
 
   <body>
     <div>
-      <label for="trxCount">Nombre de TRX :</label>
+      <label for="trxCount">Number of TRX :</label>
       <input type="number" id="trxCount" value="4" />
     </div>
     <div>
-      <label for="slotCount">Nombre de time slots :</label>
-      <input type="number" id="slotCount" value="8" />
+      <label for="lambda">Lambda (average number of communication) :</label>
+      <input type="number" id="lambda" value="4" />
+    </div>
+    <div>
+      <label for="mu">Mu (average duration time) :</label>
+      <input type="number" id="mu" value="2" />
     </div>
     <div>
       <label for="hsn">HSN :</label>
