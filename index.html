@@ -1,43 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FH in GSM and E-GRPS simulation</title>
-    <style>
-      td {
-        text-align: center;
-      }
-      table {
-        border-collapse: separate;
-        border-spacing: 0 15px;
-      }
-    </style>
-  </head>
 
-  <body>
-    <div>
-      <label for="trxCount">Number of TRX :</label>
-      <input type="number" id="trxCount" value="4" />
-    </div>
-    <div>
-      <label for="lambda">Lambda (average number of communication) :</label>
-      <input type="number" id="lambda" value="4" />
-    </div>
-    <div>
-      <label for="mu">Mu (average duration time) :</label>
-      <input type="number" id="mu" value="2" />
-    </div>
-    <div>
-      <label for="hsn">HSN :</label>
-      <input type="number" id="hsn" value="3" />
-    </div>
-    <div>
-      <button id="createButton">Créer le simulateur</button>
-    </div>
-    <table id="simulatorTable"></table>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FH in GSM and E-GRPS simulation</title>
+  <link rel="stylesheet" href="table.css">
+</head>
 
-    <script type="text/javascript" src="table.js"></script>
-  </body>
+<body>
+  <header>
+    Frequency Hopping Simulator
+  </header>
+  <main>
+    <section id="inputs">
+      <div>
+        <label for="trxCount">Number of TRX :</label>
+        <input type="number" id="trxCount" value="4" min="1" max="8" />
+      </div>
+      <div>
+        <label for="lambda">Lambda (average number of communication) :</label>
+        <input type="number" id="lambda" value="1" min="0" />
+      </div>
+      <div>
+        <label for="mu">Mu (average duration time) :</label>
+        <input type="number" id="mu" value="2" min="0" />
+      </div>
+      <div>
+        <label for="hsn">HSN :</label>
+        <input type="number" id="hsn" value="3" min="0" max="63" />
+      </div>
+      <div>
+        <button id="createButton">Launch the simulation</button>
+      </div>
+    </section>
+
+    <section>
+      <table id="simulatorTable"></table>
+    </section>
+
+  </main>
+
+
+
+  <script type="text/javascript" src="table.js"></script>
+</body>
+
 </html>

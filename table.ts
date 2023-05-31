@@ -46,11 +46,9 @@ class GsmSystem {
         if (!trx.isAvailable()) {
           let td = document.querySelector<HTMLTableElement>(`#trx${index + 1}`);
           if (td) {
-            td.innerHTML += `<td style="background-color:hsl(${
-              (trx.getFrequency() * 137.508) % 360
-            }, 80%, 60%); border-top: 2px solid black; border-bottom: 2px solid black;" width="20" id="trx${
-              index + 1
-            }_slot${frame}">${trx.getFrequency().toString()}</td>`;
+            td.innerHTML += `<td style="background-color:hsl(${(trx.getFrequency() * 137.508) % 360
+              }, 80%, 60%); border-top: 2px solid black; border-bottom: 2px solid black;" width="20" id="trx${index + 1
+              }_slot${frame}">${trx.getFrequency().toString()}</td>`;
           }
           if (trx.isFirstSlot()) {
             let td = document.querySelector<HTMLTableElement>(
@@ -71,9 +69,8 @@ class GsmSystem {
         } else {
           let td = document.querySelector<HTMLTableElement>(`#trx${index + 1}`);
           if (td) {
-            td.innerHTML += `<td width="20" id="trx${
-              index + 1
-            }_slot${frame}"></td>`;
+            td.innerHTML += `<td width="20" id="trx${index + 1
+              }_slot${frame}"></td>`;
           }
         }
         trx.hop(frame);
@@ -151,7 +148,7 @@ createButton?.addEventListener("click", () => {
 
     // Créer le tableau avec les dimensions spécifiées
     let tableHtml =
-      "<thead><tr id='frameSlots'><th>Frame Slot N°</th></tr></thead><tbody>";
+      "<tbody>";
     for (let i = 0; i < trxCount; i++) {
       tableHtml += `<tr id='trx${i + 1}'><th>TRX ${i + 1}</th></tr>`;
     }
