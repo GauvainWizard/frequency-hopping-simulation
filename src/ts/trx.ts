@@ -16,18 +16,13 @@ export class TRX {
   private frequency: number;
   private communication_duration: number;
   private communication_duration_total: number;
-  private readonly maio: number;
+  private maio: number;
   private hsn: number;
   private mai_number: number;
 
   constructor(maio: number, hsn: number = 0, mai_number: number = 8) {
     this.maio = maio;
-    this.hsn = hsn;
-    this.mai_number = mai_number;
-    this.frequency = 0;
-    this.communication_duration = 0;
-    this.communication_duration_total = 0;
-    this.hop(0); // Initialize the frequency of the TRX to the first frame
+    this.init(mai_number, hsn);
   }
 
   /**
@@ -40,6 +35,8 @@ export class TRX {
     this.hsn = hsn;
     this.communication_duration = 0;
     this.communication_duration_total = 0;
+    this.frequency = 0;
+    this.hop(0); // Initialize the frequency of the TRX to the first frame
   }
 
   /**
@@ -70,6 +67,14 @@ export class TRX {
     // If the communication duration is 0, reset the total communication duration
     if (this.communication_duration === 0)
       this.communication_duration_total = 0;
+  }
+
+  /**
+   * Set the MAIO of the TRX
+   * @param maio The MAIO of the TRX
+   */
+  public set_maio(maio: number) {
+    this.maio = maio;
   }
 
   /**

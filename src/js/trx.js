@@ -20,12 +20,7 @@ export class TRX {
     mai_number;
     constructor(maio, hsn = 0, mai_number = 8) {
         this.maio = maio;
-        this.hsn = hsn;
-        this.mai_number = mai_number;
-        this.frequency = 0;
-        this.communication_duration = 0;
-        this.communication_duration_total = 0;
-        this.hop(0); // Initialize the frequency of the TRX to the first frame
+        this.init(mai_number, hsn);
     }
     /**
      * Initialize the TRX with the given parameters
@@ -37,6 +32,8 @@ export class TRX {
         this.hsn = hsn;
         this.communication_duration = 0;
         this.communication_duration_total = 0;
+        this.frequency = 0;
+        this.hop(0); // Initialize the frequency of the TRX to the first frame
     }
     /**
      * Change the frequency of the TRX
@@ -68,6 +65,13 @@ export class TRX {
         // If the communication duration is 0, reset the total communication duration
         if (this.communication_duration === 0)
             this.communication_duration_total = 0;
+    }
+    /**
+     * Set the MAIO of the TRX
+     * @param maio The MAIO of the TRX
+     */
+    set_maio(maio) {
+        this.maio = maio;
     }
     /**
      * Get the number of bits required to represent the MAI number

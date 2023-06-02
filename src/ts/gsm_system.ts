@@ -42,10 +42,14 @@ export class GsmSystem {
     this.interval = interval;
     this.frame = frame;
 
-    this.TRXs = this.TRXs.sort(() => Math.random() - 0.5); // Shuffle it to simulate random distribution of maio
+    // Unique random MAIOs for each TRX
+    const maios: number[] = Array.from(Array(numTRX).keys()).sort(
+      () => Math.random() - 0.5
+    );
 
-    this.TRXs.forEach((trx) => {
+    this.TRXs.slice(0, numTRX).forEach((trx, index) => {
       trx.init(mai_count, hsn);
+      trx.set_maio(maios[index]);
     });
 
     this.simulating = false;
