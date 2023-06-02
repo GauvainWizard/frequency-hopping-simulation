@@ -133,6 +133,12 @@ main {
   gap: 20px;
 }
 
+@media (max-width: 500px) {
+  main {
+    flex-direction: column;
+  }
+}
+
 .inputs {
   display: flex;
   flex-direction: column;
