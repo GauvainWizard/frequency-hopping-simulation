@@ -1,7 +1,13 @@
+* {
+  --background-color: #f8f8f8;
+  --enabled-color: #4caf50;
+  --border: 2px solid black;
+}
+
 body {
   font-family: Arial, sans-serif;
-  background-color: #f8f8f8;
-  padding: 20px;
+  background-color: var(--background-color);
+  padding: 10px;
   margin: 0;
 }
 
@@ -13,29 +19,76 @@ header {
 }
 
 label {
-  display: block;
-  margin-bottom: 5px;
   font-weight: bold;
 }
 
 input[type="number"] {
   padding: 8px;
-  width: 35px;
+  width: 50px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 
+.buttons {
+  display: flex;
+  gap: 20px;
+  width: fit-content;
+}
+
 button {
-  padding: 10px 20px;
-  background-color: #4caf50;
+  padding: 10px 10px;
   color: #fff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  display: none;
+  align-items: center;
 }
 
+button,
 button:hover {
-  background-color: #45a049;
+  background-color: var(--enabled-color);
+}
+
+#start-button {
+  background-color: #2196f3;
+}
+
+#play-button {
+  background-color: #4caf50;
+}
+
+#pause-button {
+  background-color: #ff9800;
+}
+
+#stop-button {
+  background-color: #f44336;
+}
+
+button:disabled,
+button[disabled] {
+  background-color: #cccccc !important;
+  color: #666666;
+  cursor: not-allowed;
+}
+
+svg path {
+  fill: #fff;
+}
+
+svg {
+  width: 20px;
+  height: 20px;
+}
+
+.icon:first-child {
+  color: #4caf50;
+}
+
+.table {
+  width: auto;
+  overflow: hidden;
 }
 
 table {
@@ -49,6 +102,9 @@ table {
 
 th {
   padding: 15px;
+  position: sticky;
+  left: 0;
+  background-color: var(--background-color);
 }
 
 td {
@@ -58,10 +114,54 @@ td {
   min-width: 30px;
 }
 
-#inputs {
-  margin-bottom: 20px;
+td[communication-slot] {
+  background-color: var(--communication-color);
+  border-top: var(--border);
+  border-bottom: var(--border);
 }
 
-#inputs div {
-  margin-bottom: 20px;
+td[first-slot] {
+  border-left: var(--border);
+}
+
+td[last-slot] {
+  border-right: var(--border);
+}
+
+main {
+  display: flex;
+  gap: 20px;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: max-content;
+  margin-top: 30px;
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+
+#mais {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 10px;
+}
+
+#mais li {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid black;
+  background-color: hsl(var(--mai-color), 80%, 60%);
 }

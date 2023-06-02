@@ -4,5 +4,5 @@
     "target": "es2022", 
     "outDir": "./src/js",
     }, 
-    "include": [ "src/ts/*" ] 
+    "include": [ "src/ts/*", "src/ts/view/view.ts" ] 
 }

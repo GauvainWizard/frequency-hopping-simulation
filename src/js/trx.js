@@ -18,7 +18,7 @@ export class TRX {
     maio;
     hsn;
     mai_number;
-    constructor(maio, hsn = 0, mai_number) {
+    constructor(maio, hsn = 0, mai_number = 8) {
         this.maio = maio;
         this.hsn = hsn;
         this.mai_number = mai_number;
@@ -26,6 +26,17 @@ export class TRX {
         this.communication_duration = 0;
         this.communication_duration_total = 0;
         this.hop(0); // Initialize the frequency of the TRX to the first frame
+    }
+    /**
+     * Initialize the TRX with the given parameters
+     * @param hsn The HSN of the TRX
+     * @param mai_number The MAI number of the TRX
+     */
+    init(mai_number, hsn) {
+        this.mai_number = mai_number;
+        this.hsn = hsn;
+        this.communication_duration = 0;
+        this.communication_duration_total = 0;
     }
     /**
      * Change the frequency of the TRX
