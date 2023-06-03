@@ -1,4 +1,4 @@
-import { GsmSystem } from "./gsm_system.js";
+import { Cell } from "./cell.js";
 var State;
 (function (State) {
     State[State["STOPPED"] = 0] = "STOPPED";
@@ -18,7 +18,7 @@ class EventListener {
     interval_input;
     simulator_table;
     state;
-    gsm_system;
+    cell;
     constructor() {
         this.start_button =
             document.querySelector("#start-button");
@@ -39,7 +39,7 @@ class EventListener {
             document.querySelector("#interval");
         this.simulator_table =
             document.querySelector("#simulator-table");
-        this.gsm_system = new GsmSystem();
+        this.cell = new Cell();
         this.trx_count_input.addEventListener("input", this.update_trx, false);
         // this.update_trx({ target: this.trx_count_input }); already called in set_state(State.STOPPED)
         this.mai_count_input.addEventListener("input", this.update_mai, false);
@@ -50,7 +50,7 @@ class EventListener {
         this.stop_button.addEventListener("click", () => this.set_state(State.STOPPED), false);
         this.set_state(State.STOPPED);
     }
-    set_state = (state) => {
+    set_state(state) {
         this.state = state;
         this.trx_count_input.disabled = true;
         this.mai_count_input.disabled = true;
@@ -70,21 +70,25 @@ class EventListener {
             this.mu_input.disabled = false;
             this.hsn_input.disabled = false;
             this.interval_input.disabled = false;
-            this.gsm_system.stop();
+            this.cell.stop();
             this.simulator_table.innerHTML = "";
+            document.querySelector(".stats").innerHTML =
+                "<h3>STATS</h3>";
+            document.querySelector(".logs").innerHTML =
+                "<h3>LOGS</h3>";
             this.update_trx({ target: this.trx_count_input });
         }
         else if (state === State.PAUSED) {
             this.play_button.style.display = "flex";
             this.stop_button.style.display = "flex";
-            this.gsm_system.pause();
+            this.cell.pause();
         }
         else if (state === State.PLAYING) {
             this.pause_button.style.display = "flex";
             this.stop_button.style.display = "flex";
-            this.gsm_system.simulate();
+            this.cell.simulate();
         }
-    };
+    }
     init = () => {
         const trx_amount = Number(this.trx_count_input?.value);
         const mai_amount = Number(this.mai_count_input?.value);
@@ -92,7 +96,8 @@ class EventListener {
         const lambda_value = Number(this.lambda_input?.value);
         const mu_value = Number(this.mu_input?.value);
         const interval_value = Number(this.interval_input?.value);
-        this.gsm_system.init(trx_amount, mai_amount, hsn_value, lambda_value, mu_value, interval_value);
+        console.log(this.cell);
+        this.cell.init(trx_amount, mai_amount, hsn_value, lambda_value, mu_value, interval_value);
         this.set_state(State.PLAYING);
     };
     update_mai = (e) => {
@@ -110,13 +115,13 @@ class EventListener {
         if (this.simulator_table) {
             const trx_target = e.target;
             const trx_amount = Number(trx_target.value);
-            // Créer le tableau avec les dimensions spécifiées
-            let tableHtml = "<tbody>";
+            // Create the table
+            let tableHtml = `<thead><tr id='head'><th>Frame</th></tr></thead><tbody>`;
             for (let trx = 0; trx < trx_amount; ++trx) {
                 tableHtml += `<tr id='trx${trx + 1}'><th>TRX ${trx + 1}</th></tr>`;
             }
             tableHtml += "</tbody>";
-            // Ajouter le tableau dans l'élément correspondant
+            // Add the table to the DOM
             this.simulator_table.innerHTML = tableHtml;
         }
     };

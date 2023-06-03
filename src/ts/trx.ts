@@ -89,7 +89,7 @@ export class TRX {
    * Get the frequency of the TRX
    * @returns The frequency of the TRX
    */
-  public get_frequency() {
+  public get_frequency(): number {
     return this.frequency;
   }
 
@@ -97,7 +97,7 @@ export class TRX {
    * Check if the TRX is available
    * @returns True if the TRX is available, false otherwise
    */
-  public is_available() {
+  public is_available(): boolean {
     return this.communication_duration === 0;
   }
 
@@ -105,7 +105,7 @@ export class TRX {
    * Check if it is the first slot of the communication in the TRX
    * @returns True if it is the first slot of the communication in the TRX, false otherwise
    */
-  public is_first_slot() {
+  public is_first_slot(): boolean {
     return this.communication_duration_total === this.communication_duration;
   }
 
@@ -113,7 +113,7 @@ export class TRX {
    * Check if is the last slot of the communication in the TRX
    * @returns True if is the last slot of the communication in the TRX, false otherwise
    */
-  public is_last_slot() {
+  public is_last_slot(): boolean {
     return this.communication_duration === 1;
   }
 

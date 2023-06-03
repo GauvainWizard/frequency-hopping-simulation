@@ -9,7 +9,12 @@ function poisson(lambda) {
     } while (p >= L);
     return k;
 }
-export class GsmSystem {
+function focus_frame(frame) {
+    const frame_element = document.querySelector(`#trx1_slot${frame}`);
+    frame_element.scrollIntoView(true);
+}
+window.focus_frame = focus_frame;
+export class Cell {
     TRXs; // All TRXs
     trx_count; // Number of TRXs
     lambda;
@@ -17,19 +22,20 @@ export class GsmSystem {
     interval;
     frame = 1;
     simulating;
+    interferences_count = 0;
     constructor() {
         this.TRXs = Array.from({ length: 8 }, (v, i) => new TRX(i));
     }
-    init(numTRX, mai_count, hsn = 0, lambda, mu, interval = 500, frame = 1) {
+    init(num_trx, mai_count, hsn = 0, lambda, mu, interval = 500, frame = 1) {
         this.stop();
         this.lambda = lambda;
         this.mu = mu;
-        this.trx_count = numTRX;
+        this.trx_count = num_trx;
         this.interval = interval;
         this.frame = frame;
         // Unique random MAIOs for each TRX
-        const maios = Array.from(Array(numTRX).keys()).sort(() => Math.random() - 0.5);
-        this.TRXs.slice(0, numTRX).forEach((trx, index) => {
+        const maios = Array.from(Array(num_trx).keys()).sort(() => Math.random() - 0.5);
+        this.TRXs.slice(0, num_trx).forEach((trx, index) => {
             trx.init(mai_count, hsn);
             trx.set_maio(maios[index]);
         });
@@ -40,6 +46,7 @@ export class GsmSystem {
      */
     stop() {
         this.simulating = false;
+        this.interferences_count = 0;
     }
     /**
      * Pause the simulation
@@ -68,7 +75,9 @@ export class GsmSystem {
                     trx.communicate(communication_duration);
                 }
             }
-            // For each TRXs (range 0 to numTRX - 1)
+            // Array of frequencies used in this frame
+            let frequencies = Array(8).fill(0);
+            // For each TRXs (range 0 to num_trx - 1)
             this.TRXs.slice(0, this.trx_count).forEach((trx, index) => {
                 const trx_td = document.querySelector(`#trx${index + 1}`);
                 if (trx_td) {
@@ -80,6 +89,8 @@ export class GsmSystem {
                     trx_slot.setAttribute("communication-slot", "");
                     trx_slot.innerHTML = `${trx.get_frequency().toString()}`;
                     trx_slot.style.setProperty("--communication-color", `hsl(${(trx.get_frequency() * 137.508) % 360}, 80%, 60%)`);
+                    // Add the frequency to the array of frequencies used in this frame
+                    ++frequencies[trx.get_frequency()];
                     // If it is the first or last slot of the communication, add a border
                     if (trx.is_first_slot())
                         trx_slot.setAttribute("first-slot", "");
@@ -88,8 +99,31 @@ export class GsmSystem {
                 }
                 trx.hop(this.frame);
             });
+            // If two or more frequencies are the same frequency, report it in the div with class "logs"
+            const logs = document.querySelector(".logs");
+            frequencies.forEach((frequency, index) => {
+                if (frequency > 1) {
+                    // delete h3 if exists
+                    if (logs.innerHTML.includes("<h3>LOGS</h3>"))
+                        logs.innerHTML = logs.innerHTML.replace("<h3>LOGS</h3>", "");
+                    // on click focus on the frame
+                    logs.innerHTML =
+                        `<h3>LOGS</h3> <p onclick="focus_frame(${this.frame})">[Interference Frame ${this.frame}] Frequency ${index} is used ${frequency} times.</p>` +
+                            logs.innerHTML;
+                    this.interferences_count += frequency - 1;
+                }
+            });
+            const stats = document.querySelector(".stats");
+            stats.innerHTML = `<h3>STATS</h3>`;
+            stats.innerHTML += `<p>Total frames: ${this.frame}</p>`;
+            stats.innerHTML += `<p>Total hops: ${this.frame * this.trx_count}</p>`;
+            stats.innerHTML += `<p>Total interferences : ${this.interferences_count}</p>`;
+            stats.innerHTML += `<p>Interference Rate: ${((this.interferences_count / (this.frame * this.trx_count)) *
+                100).toFixed(2)}%</p>`;
+            const trx_head = document.querySelector("#head");
+            trx_head.innerHTML += `<td>${this.frame}</td>`;
             ++this.frame;
         }, this.interval);
     }
 }
-//# sourceMappingURL=gsm_system.js.map
+//# sourceMappingURL=cell.js.map

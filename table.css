@@ -89,6 +89,9 @@ svg {
 .table {
   width: auto;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
 table {
@@ -98,10 +101,25 @@ table {
   border-collapse: separate;
   border-spacing: 0 15px;
   table-layout: fixed;
+  flex: 0 1 auto;
+}
+
+.logs {
+  flex: 1;
+  width: auto;
+  height: auto;
+}
+
+.logs p {
+  cursor: pointer;
+}
+
+thead td {
+  font-size: 14px;
 }
 
 th {
-  padding: 15px;
+  padding: 15px 15px 15px 0;
   position: sticky;
   left: 0;
   background-color: var(--background-color);
@@ -109,9 +127,8 @@ th {
 
 td {
   text-align: center;
-  width: 30px;
   height: 30px;
-  min-width: 30px;
+  min-width: 45px;
 }
 
 td[communication-slot] {
@@ -130,7 +147,7 @@ td[last-slot] {
 
 main {
   display: flex;
-  gap: 20px;
+  gap: 75px;
 }
 
 @media (max-width: 500px) {
