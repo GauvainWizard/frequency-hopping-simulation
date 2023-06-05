@@ -86,7 +86,7 @@ svg {
   color: #4caf50;
 }
 
-.table {
+.outputs {
   width: auto;
   overflow: hidden;
   display: flex;
@@ -177,6 +177,8 @@ main {
   padding: 0;
   margin: 0;
   gap: 10px;
+  max-width: 350px;
+  flex-wrap: wrap;
 }
 
 #mais li {
