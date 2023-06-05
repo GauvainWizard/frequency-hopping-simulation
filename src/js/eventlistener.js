@@ -118,7 +118,7 @@ class EventListener {
             // Create the table
             let tableHtml = `<thead><tr id='head'><th>Frame</th></tr></thead><tbody>`;
             for (let trx = 0; trx < trx_amount; ++trx) {
-                tableHtml += `<tr id='trx${trx + 1}'><th>TRX ${trx + 1}</th></tr>`;
+                tableHtml += `<tr id='trx${trx + 1}'><th id='trx${trx + 1}_th'>TRX ${trx + 1}</th></tr>`;
             }
             tableHtml += "</tbody>";
             // Add the table to the DOM

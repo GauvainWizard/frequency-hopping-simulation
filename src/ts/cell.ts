@@ -60,6 +60,12 @@ export class Cell {
     this.TRXs.slice(0, num_trx).forEach((trx, index) => {
       trx.init(mai_count, hsn);
       trx.set_maio(maios[index]);
+      const trx_th = document.querySelector<HTMLTableElement>(
+        `#trx${index + 1}_th`
+      );
+      // Write the MAIO in the table header
+      if (trx_th)
+        trx_th.innerHTML = `TRX ${index + 1}<br> (MAIO ${maios[index]})`;
     });
 
     this.simulating = false;
